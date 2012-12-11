@@ -1,0 +1,197 @@
+<html>
+ <body>
+   <style type="text/css">
+     .sprites {position:absolute;top:20;left:20;}
+   .image1 {clip:rect(120px,544px,280px,384px);left:-63px;top:-120px;}
+     .image2 {clip:rect(440px,704px,600px,544px);left:-63px;top:-120px;}
+	 .image3 {clip:rect(280px,544px,440px,384px);left:-63px;top:-120px;}
+	 .image4 {clip:rect(120px,704px,280px,544px);left:-63px;top:-120px;}
+     .image5 {clip:rect(440px,384px,600px,224px);left:-63px;top:-120px;}
+     .image6 {clip:rect(440px,544px,600px,384px);left:-63px;top:-120px;}
+     .image7 {clip:rect(440px,224px,600px,64px);left:-63px;top:-120px;}
+     .image8 {clip:rect(600px,224px,760px,64px);left:-63px;top:-120px;}
+     .image9 {clip:rect(280px,384px,440px,224px);left:-63px;top:-120px;}
+     .image10 {clip:rect(280px,224px,440px,64px);left:-63px;top:-120px;}
+     .image11 {clip:rect(600px,384px,760px,224px);left:-63px;top:-120px;}
+     .image12 {clip:rect(600px,704px,760px,544px);left:-63px;top:-120px;}
+	 .image13 {clip:rect(120px,384px,280px,224px);left:-63px;top:-120px;}
+     .image14 {clip:rect(600px,544px,760px,384px);left:-63px;top:-120px;}
+     .image15 {clip:rect(120px,224px,280px,64px);left:-63px;top:-119px;}
+     .imageX {clip:rect(280px,704px,440px,544px);left:-63px;top:-120px;}
+	 .envoltorio {position:relative;height:640px;width:641px;border-style:solid;
+	border-color:black;border-width:1px;}
+
+   </style>
+
+   <script language="javascript">
+   var pos= ["imagen15","imagen13","imagen1","imagen4",
+   "imagen10","imagen9","imagen3","imagenX","imagen7","imagen5",
+   "imagen6","imagen2","imagen8","imagen11","imagen14","imagen12",];
+   var idactual=0;
+   var posX=0;
+   var posTop = 0;
+   var posBot = 0;
+   var posRig = 0;
+   var posLef = 0;
+   var movimientos = 0;
+   function mover(id) {
+	  
+	  idactual = id;
+	  var mov = sePuedeMover(idactual);
+	  
+		switch(mov){
+			case "arriba":
+				arriba(idactual);
+				recolocar(idactual);
+				break;
+			case "abajo":
+				abajo(idactual);
+				recolocar(idactual);
+
+				break;
+			case "izquierda":
+				izquierda(idactual);
+				recolocar(idactual);
+
+				break;
+			case "derecha":
+				derecha(idactual);
+				recolocar(idactual);
+				break;
+		  }
+		
+	}
+	function recolocar(id){
+		for(var j=0; j<pos.length;j++){
+				if(pos[j]=="imagen"+id){
+					
+					pos[j]="imagenX";
+					pos[posX]="imagen"+id;
+					movimientos +=1 ;
+					mostrarMovs();
+					comprobar();
+					return;
+				}
+			}
+	
+	}
+	
+	function comprobar(){	
+		if(pos[0]="imagenX" && pos[1]="imagen15" && pos[2]="imagen14" && pos[3]="imagen13" && pos[4]="imagen12" && pos[5]="imagen11" && 
+		pos[6]="imagen10" && pos[7]="imagen9" && pos[8]="imagen8" && pos[9]="imagen7" && pos[10]="imagen6" && 
+		pos[11]="imagen5" && pos[12]="imagen4" && pos[13]="imagen3" && pos[14]="imagen2" && pos[15]="imagen1"){
+			window.alert("Enhorabuena! Has resuelto el puzzle en " + mov+ "movimientos");
+		}
+	
+	}
+	
+	function arriba(id) {
+	  imagen=document.getElementById("imagen"+id);
+	  estilo=window.getComputedStyle(imagen);
+	  y=parseInt(estilo.top)-160;
+	  imagen.style.top=y;
+	  imagen2=document.getElementById("imagenX");
+	  estilo2=window.getComputedStyle(imagen2);
+	  x=parseInt(estilo2.top)+160;
+	  imagen2.style.top=x; 
+	}
+
+	function abajo(id) {
+	   imagen=document.getElementById("imagen"+id);
+	  estilo=window.getComputedStyle(imagen);
+	  y=parseInt(estilo.top)+160;
+	  imagen.style.top=y;
+	  imagen2=document.getElementById("imagenX");
+	  estilo2=window.getComputedStyle(imagen2);
+	  x=parseInt(estilo2.top)-160;
+	  imagen2.style.top=x;
+
+
+	}
+
+	function izquierda(id) {
+	   imagen=document.getElementById("imagen"+id);
+	  estilo=window.getComputedStyle(imagen);
+	  y=parseInt(estilo.left)-160;
+	  imagen.style.left=y;
+	  imagen2=document.getElementById("imagenX");
+	  estilo2=window.getComputedStyle(imagen2);
+	  x=parseInt(estilo2.left)+160;
+	  imagen2.style.left=x;
+	 }
+
+	 function derecha(id) {
+	  imagen=document.getElementById("imagen"+id);
+	  estilo=window.getComputedStyle(imagen);
+	  y=parseInt(estilo.left)+160;
+	  imagen.style.left=y;
+	  imagen2=document.getElementById("imagenX");
+	  estilo2=window.getComputedStyle(imagen2);
+	  x=parseInt(estilo2.left)-160;
+	  imagen2.style.left=x;
+	 }
+	function mostrarMovs() {
+		
+	   coords=document.getElementById("coordenadas");
+	   coords.innerHTML="Movimientos:"+movimientos;
+	 }
+	 
+	 function sePuedeMover(idactual) {
+	
+		for(var i=0; i<pos.length;i++){
+			if(pos[i]=="imagenX"){
+				posX=i;
+				posTop = i-4;
+				posBot = i+4;
+				if(i!=0 && i!=4 && i!=8 && i!=12){
+					posLef = i-1;
+				} else posLef=20;
+				if(i!=3 && i!=7 && i!=11 && i!=15){
+					posRig = i+1;
+				}else posRig = 20;
+			}
+		}
+		if(pos[posTop]=="imagen"+idactual){
+			return "abajo";
+		}
+		if(pos[posBot]=="imagen"+idactual){
+			return "arriba";
+		}if(pos[posRig]=="imagen"+idactual){
+			return "izquierda";
+		}if(pos[posLef]=="imagen"+idactual){
+			return "derecha";
+		}
+		return "no";
+		
+	 }
+	
+	
+
+   </script>
+   <div id="coordenadas" style="position:absolute;top:10px;left:700px;font-family:arial;">Movimientos:</div>
+
+    <div id="envoltorio" class="envoltorio">
+	<img id="imagen1" class="sprites image1" onClick="mover(1)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen2" class="sprites image2" onClick="mover(2)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen3" class="sprites image3" onClick="mover(3)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen4" class="sprites image4" onClick="mover(4)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen5" class="sprites image5" onClick="mover(5)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen6" class="sprites image6" onClick="mover(6)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen7" class="sprites image7" onClick="mover(7)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen8" class="sprites image8" onClick="mover(8)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen9" class="sprites image9" onClick="mover(9)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen10" class="sprites image10" onClick="mover(10)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen11" class="sprites image11" onClick="mover(11)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen12" class="sprites image12" onClick="mover(12)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen13" class="sprites image13" onClick="mover(13)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen14" class="sprites image14" onClick="mover(14)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagen15" class="sprites image15" onClick="mover(15)" src="./imagenes/15-puzzle.jpg">
+	<img id="imagenX" class="sprites imageX" src="./imagenes/15-puzzle.jpg">	
+	</div>
+	
+	
+	
+ </body>
+</html>
+
+		
